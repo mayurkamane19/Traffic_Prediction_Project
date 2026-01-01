@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Traffic Prediction System</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    >
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">
+      🚦 Traffic Predictor
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#predict">Predict</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#graph">Analytics</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= MAIN CONTENT ================= -->
+<div class="container mt-4 mb-5 flex-grow-1">
+
+    <h2 class="text-center mb-4">🚦 Traffic Prediction Using ML</h2>
+
+    <!-- Prediction Form -->
+    <div id="predict" class="card p-4 shadow-sm">
+        <form method="POST" class="row g-3">
+
+            <div class="col-md-4">
+                <label class="form-label">Temperature</label>
+                <input class="form-control" name="temp" required>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Rain</label>
+                <input class="form-control" name="rain" required>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Snow</label>
+                <input class="form-control" name="snow" required>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Clouds (%)</label>
+                <input class="form-control" name="clouds" required>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Hour (0–23)</label>
+                <input class="form-control" name="hour" required>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Day (0=Mon)</label>
+                <input class="form-control" name="day" required>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Month</label>
+                <input class="form-control" name="month" required>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Traffic 1 hr ago</label>
+                <input class="form-control" name="lag1" required>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Traffic 24 hrs ago</label>
+                <input class="form-control" name="lag24" required>
+            </div>
+
+            <div class="col-12 text-center">
+                <button class="btn btn-primary px-5 mt-3">
+                    Predict Traffic
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Prediction Result -->
+    {% if prediction %}
+    <div class="alert alert-success text-center mt-4">
+        🚗 <strong>Predicted Traffic Volume:</strong> {{ prediction }} vehicles
+    </div>
+    {% endif %}
+
+    <!-- Graph -->
+    {% if plot_file %}
+<div id="graph" class="card mt-4 p-3 shadow-sm">
+    <h5 class="text-center">📈 Traffic Comparison</h5>
+    <img src="{{ url_for('static', filename=plot_file) }}"
+         class="img-fluid">
+</div>
+{% endif %}
+
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-dark text-light text-center py-3 mt-auto">
+    <div class="container">
+        <small>
+            © 2026 Traffic Prediction System |
+            Built with Flask, ML & Bootstrap
+        </small>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
